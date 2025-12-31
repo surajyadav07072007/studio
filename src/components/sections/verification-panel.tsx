@@ -212,7 +212,7 @@ export default function VerificationPanel({ onAnalysisComplete }: { onAnalysisCo
                       <FormItem>
                         <FormLabel>Company Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. Acme Corporation" {...field} />
+                          <Input type="text" placeholder="e.g. Acme Corporation" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -225,7 +225,7 @@ export default function VerificationPanel({ onAnalysisComplete }: { onAnalysisCo
                       <FormItem>
                         <FormLabel>Job/Internship Link (Optional)</FormLabel>
                         <FormControl>
-                          <Input placeholder="https://example.com/job/123" {...field} />
+                          <Input type="url" placeholder="https://example.com/job/123" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -239,7 +239,7 @@ export default function VerificationPanel({ onAnalysisComplete }: { onAnalysisCo
                     <FormItem>
                       <FormLabel>Recruiter Email (Optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="recruiter@company.com" {...field} />
+                        <Input type="email" placeholder="recruiter@company.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
