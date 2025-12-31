@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Abstract technology background representing data and security.",
+      "imageUrl": "https://images.unsplash.com/photo-1761284669171-f84d64496ecf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMHNlY3VyaXR5fGVufDB8fHx8MTc2NzA5MTM0MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract security"
+    },
+    {
+      "id": "how-it-works-step1",
+      "description": "An icon or image representing data entry for job details.",
+      "imageUrl": "https://images.unsplash.com/photo-1543325338-5908f27c54e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkYXRhJTIwZW50cnl8ZW58MHx8fHwxNzY3MTcyNzI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "data entry"
+    },
+    {
+      "id": "how-it-works-step2",
+      "description": "An icon or image representing AI-powered data analysis.",
+      "imageUrl": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkYXRhJTIwYW5hbHlzaXN8ZW58MHx8fHwxNzY3MTM3NTIxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "data analysis"
+    },
+    {
+      "id": "how-it-works-step3",
+      "description": "An icon or image representing the final report or trust score.",
+      "imageUrl": "https://images.unsplash.com/photo-1759661937582-0ccd5dacf20f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyZXBvcnQlMjByZXN1bHRzfGVufDB8fHx8MTc2NzE3MjcyNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "report results"
+    },
+    {
+      "id": "about-us-image",
+      "description": "An image representing teamwork, trust, and professionalism.",
+      "imageUrl": "https://images.unsplash.com/photo-1548593573-b5b1a92849fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dGVhbXdvcmslMjB0cnVzdHxlbnwwfHx8fDE3NjcxNzI3MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "teamwork trust"
+    }
+  ]
 }
