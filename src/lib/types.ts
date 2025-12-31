@@ -3,8 +3,8 @@ import type { AnalyzeJobDescriptionForSuspiciousTermsOutput } from "@/ai/flows/a
 
 export type VerificationFormData = {
   companyName: string;
-  jobLink: string;
-  recruiterEmail: string;
+  jobLink?: string | undefined;
+  recruiterEmail?: string | undefined;
   jobDescription: string;
   websiteSecure: boolean;
   websiteIsNew: boolean;

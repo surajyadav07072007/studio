@@ -7,8 +7,8 @@ import type { AnalysisResult, VerificationFormData } from '@/lib/types';
 
 const FormSchema = z.object({
   companyName: z.string().min(1, 'Company name is required.'),
-  jobLink: z.string().url('Please enter a valid URL.'),
-  recruiterEmail: z.string().email('Please enter a valid email.'),
+  jobLink: z.string().url('Please enter a valid URL.').or(z.literal('')).optional(),
+  recruiterEmail: z.string().email('Please enter a valid email.').or(z.literal('')).optional(),
   jobDescription: z.string().min(50, 'Job description must be at least 50 characters.'),
   websiteSecure: z.boolean(),
   websiteIsNew: z.boolean(),

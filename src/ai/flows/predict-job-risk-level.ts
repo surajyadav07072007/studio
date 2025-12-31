@@ -13,8 +13,8 @@ import {z} from 'genkit';
 
 const PredictJobRiskLevelInputSchema = z.object({
   companyName: z.string().describe('The name of the company offering the job.'),
-  jobLink: z.string().describe('The URL of the job posting.'),
-  recruiterEmail: z.string().describe('The email address of the recruiter.'),
+  jobLink: z.string().describe('The URL of the job posting.').optional(),
+  recruiterEmail: z.string().describe('The email address of the recruiter.').optional(),
   jobDescription: z.string().describe('The full text of the job description.'),
   websiteSecure: z.boolean().describe('Whether the job posting website is secure (HTTPS).'),
   websiteAgeDays: z.number().describe('The age of the job posting website in days.'),
