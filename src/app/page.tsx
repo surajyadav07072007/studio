@@ -12,7 +12,6 @@ import type { AnalysisResult } from '@/lib/types';
 
 export default function Home() {
   const [history, setHistory] = React.useState<AnalysisResult[]>([]);
-  const [historyKey, setHistoryKey] = React.useState(0);
 
   React.useEffect(() => {
     try {
@@ -30,7 +29,6 @@ export default function Home() {
       const updatedHistory = [newResult, ...history].slice(0, 5); // Keep last 5
       setHistory(updatedHistory);
       localStorage.setItem('verijob-history', JSON.stringify(updatedHistory));
-      setHistoryKey(prev => prev + 1);
     } catch (error) {
       console.error("Failed to save history to localStorage", error);
     }
@@ -43,7 +41,7 @@ export default function Home() {
         <Hero />
         <VerificationPanel onAnalysisComplete={handleAnalysisComplete} />
         <HowItWorks />
-        <HistorySection key={historyKey} history={history} />
+        <HistorySection history={history} />
         <AboutUs />
       </main>
       <Footer />

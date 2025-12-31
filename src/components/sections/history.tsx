@@ -56,12 +56,25 @@ function getRiskLevelStyles(riskLevel: string) {
 export default function HistorySection({ history }: { history: AnalysisResult[] }) {
   const [selectedResult, setSelectedResult] = React.useState<AnalysisResult | null>(null);
 
+  const prevHistoryRef = React.useRef<AnalysisResult[]>();
+
+  React.useEffect(() => {
+    // Only scroll into view if the history has actually changed and is not empty
+    if (history.length > 0 && prevHistoryRef.current && history.length > prevHistoryRef.current.length) {
+      const element = document.getElementById('history');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    prevHistoryRef.current = history;
+  }, [history]);
+
   if (!history.length) {
     return null;
   }
 
   return (
-    <section id="history" className="w-full py-12 md:py-24 lg:py-32">
+    <section id="history" className="w-full scroll-mt-20 py-12 md:py-24 lg:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-4xl space-y-4 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Your Recent Analyses</h2>
