@@ -18,11 +18,11 @@ const FormSchema = z.object({
 function mapRiskToScore(riskLevel: 'safe' | 'be careful' | 'fake'): number {
   switch (riskLevel) {
     case 'safe':
-      return 90; // 80-100
+      return 90;
     case 'be careful':
-      return 60; // 40-79
+      return 60;
     case 'fake':
-      return 25; // 10-39
+      return 25;
     default:
       return 0;
   }
@@ -41,7 +41,7 @@ export async function performJobAnalysis(
   }
 
   try {
-    const { jobDescription } = validatedFields.data;
+    const { companyName, jobDescription } = validatedFields.data;
 
     // Step 1: Analyze job description for suspicious terms
     const suspiciousTermsAnalysis = await analyzeJobDescriptionForSuspiciousTerms({
@@ -56,12 +56,15 @@ export async function performJobAnalysis(
     });
 
     const score = mapRiskToScore(riskPrediction.riskLevel);
+    
+    // Generate a more stable unique ID
+    const uniqueId = `${companyName.replace(/\s+/g, '-')}-${Date.now()}`;
 
     const result: AnalysisResult = {
       ...riskPrediction,
       suspiciousTerms: suspiciousTermsAnalysis.suspiciousTerms,
       score,
-      id: new Date().toISOString(),
+      id: uniqueId,
       formData,
     };
 

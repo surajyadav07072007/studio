@@ -112,7 +112,7 @@ export default function HistorySection({ history }: { history: AnalysisResult[] 
             <DialogHeader>
               <DialogTitle>Analysis for {selectedResult.formData.companyName}</DialogTitle>
               <DialogDescription>
-                Detailed breakdown of the job verification from {new Date(selectedResult.id).toLocaleString()}.
+                Detailed breakdown of the job verification from {new Date(selectedResult.id.split('-').pop()!).toLocaleString()}.
               </DialogDescription>
             </DialogHeader>
             <div className="grid max-h-[60vh] grid-cols-1 gap-6 overflow-y-auto p-1 md:grid-cols-2">
