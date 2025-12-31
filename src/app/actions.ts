@@ -18,11 +18,11 @@ const FormSchema = z.object({
 function mapRiskToScore(riskLevel: 'safe' | 'be careful' | 'fake'): number {
   switch (riskLevel) {
     case 'safe':
-      return Math.floor(Math.random() * (100 - 80 + 1)) + 80; // 80-100
+      return 90; // 80-100
     case 'be careful':
-      return Math.floor(Math.random() * (79 - 40 + 1)) + 40; // 40-79
+      return 60; // 40-79
     case 'fake':
-      return Math.floor(Math.random() * (39 - 10 + 1)) + 10; // 10-39
+      return 25; // 10-39
     default:
       return 0;
   }
