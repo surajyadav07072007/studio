@@ -5,7 +5,8 @@ export type VerificationFormData = {
   companyName: string;
   jobLink?: string | undefined;
   recruiterEmail?: string | undefined;
-  jobDescription: string;
+  jobDescription?: string;
+  jobScreenshot?: string;
   websiteSecure: boolean;
   websiteIsNew: boolean;
   emailDomainMatchesCompany: boolean;

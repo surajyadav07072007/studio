@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Upload } from 'lucide-react';
 import type { AnalysisResult, VerificationFormData } from '@/lib/types';
 import { Switch } from '../ui/switch';
 import AnalysisResultDisplay from './analysis-result-display';
@@ -21,10 +21,14 @@ const FormSchema = z.object({
   companyName: z.string().min(1, 'Company name is required.'),
   jobLink: z.string().url('Please enter a valid URL.').or(z.literal('')).optional(),
   recruiterEmail: z.string().email('Please enter a valid email.').or(z.literal('')).optional(),
-  jobDescription: z.string().min(50, 'Job description must be at least 50 characters.').max(5000, 'Job description must be less than 5000 characters.'),
+  jobDescription: z.string().max(5000, 'Job description must be less than 5000 characters.'),
+  jobScreenshot: z.string().optional(),
   websiteSecure: z.boolean(),
   websiteIsNew: z.boolean(),
   emailDomainMatchesCompany: z.boolean(),
+}).refine(data => !!data.jobDescription || !!data.jobScreenshot, {
+  message: "Either a job description or a screenshot is required.",
+  path: ["jobDescription"],
 });
 
 interface VerificationPanelProps {
@@ -51,11 +55,24 @@ export default function VerificationPanel({
       jobLink: '',
       recruiterEmail: '',
       jobDescription: '',
+      jobScreenshot: '',
       websiteSecure: true,
       websiteIsNew: false,
       emailDomainMatchesCompany: true,
     },
   });
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        form.setValue('jobScreenshot', reader.result as string);
+        toast({ title: "Image uploaded successfully!" });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onSubmit: SubmitHandler<VerificationFormData> = async (data) => {
     setLoading(true);
@@ -90,7 +107,7 @@ export default function VerificationPanel({
   }
 
   return (
-    <section id="verify" className="w-full py-12 md:py-24 lg:py-32 bg-card">
+    <section id="verify" className="w-full scroll-mt-20 py-12 md:py-24 lg:py-32 bg-card">
       <div className="container">
         <Card className="mx-auto max-w-3xl">
           <CardHeader className="text-center">
@@ -141,19 +158,52 @@ export default function VerificationPanel({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="jobDescription"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Job Description</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Paste the full job description here..." className="min-h-[150px]" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                
+                <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="jobDescription"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Job Description</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Paste the full job description here..." className="min-h-[150px]" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-card px-2 text-muted-foreground">
+                            Or
+                            </span>
+                        </div>
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="jobScreenshot"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Upload a screenshot</FormLabel>
+                           <FormControl>
+                            <Input
+                              type="file"
+                              accept="image/*"
+                              className="pt-2 text-sm file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-primary-foreground hover:file:bg-primary/90"
+                              onChange={handleFileChange}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                </div>
+
+
                 <div className="space-y-4 rounded-md border p-4">
                   <h3 className="text-sm font-medium">Additional Context</h3>
                   <p className="text-sm text-muted-foreground">Help our AI by providing some extra information.</p>
