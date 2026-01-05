@@ -5,9 +5,11 @@ import Link from 'next/link';
 import { ShieldCheck, Flag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ReportJobDialog from '../report-job-dialog';
+import { useMounted } from '@/hooks/use-mounted';
 
 export default function Header() {
   const [isReportDialogOpen, setReportDialogOpen] = React.useState(false);
+  const isMounted = useMounted();
 
   const navLinks = [
     { name: 'How It Works', href: '#how-it-works' },
@@ -35,17 +37,19 @@ export default function Header() {
             ))}
           </nav>
           <div className="flex flex-1 items-center justify-end space-x-2">
-            <Button variant="outline" size="sm" onClick={() => setReportDialogOpen(true)} className="hidden sm:flex">
-                <Flag className="mr-2 h-4 w-4" />
-                Report a Scam
-            </Button>
+            {isMounted && (
+              <Button variant="outline" size="sm" onClick={() => setReportDialogOpen(true)} className="hidden sm:flex">
+                  <Flag className="mr-2 h-4 w-4" />
+                  Report a Scam
+              </Button>
+            )}
             <Button asChild>
               <Link href="#verify">Start Verification</Link>
             </Button>
           </div>
         </div>
       </header>
-      <ReportJobDialog open={isReportDialogOpen} onOpenChange={setReportDialogOpen} />
+      {isMounted && <ReportJobDialog open={isReportDialogOpen} onOpenChange={setReportDialogOpen} />}
     </>
   );
 }

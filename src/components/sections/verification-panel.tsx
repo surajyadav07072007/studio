@@ -16,12 +16,13 @@ import { Loader2, Upload } from 'lucide-react';
 import type { AnalysisResult, VerificationFormData } from '@/lib/types';
 import { Switch } from '../ui/switch';
 import AnalysisResultDisplay from './analysis-result-display';
+import { useMounted } from '@/hooks/use-mounted';
 
 const FormSchema = z.object({
   companyName: z.string().min(1, 'Company name is required.'),
   jobLink: z.string().url('Please enter a valid URL.').or(z.literal('')).optional(),
   recruiterEmail: z.string().email('Please enter a valid email.').or(z.literal('')).optional(),
-  jobDescription: z.string().max(5000, 'Job description must be less than 5000 characters.'),
+  jobDescription: z.string().max(5000, 'Job description must be less than 5000 characters.').optional(),
   jobScreenshot: z.string().optional(),
   websiteSecure: z.boolean(),
   websiteIsNew: z.boolean(),
@@ -48,6 +49,7 @@ export default function VerificationPanel({
 }: VerificationPanelProps) {
   
   const { toast } = useToast();
+  const isMounted = useMounted();
   const form = useForm<VerificationFormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -89,6 +91,27 @@ export default function VerificationPanel({
       });
     }
   };
+
+  if (!isMounted) {
+    return (
+      <section id="verify" className="w-full scroll-mt-20 py-12 md:py-24 lg:py-32 bg-card">
+        <div className="container">
+            <Card className="mx-auto max-w-3xl">
+                <CardHeader className="text-center">
+                    <CardTitle className="text-3xl font-bold tracking-tighter sm:text-4xl">Verify a Job Posting</CardTitle>
+                    <CardDescription>Enter the details below and our AI will analyze the posting for you.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex flex-col items-center justify-center gap-4 text-center h-96">
+                        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                        <h2 className="text-2xl font-bold tracking-tighter">Loading Form...</h2>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+      </section>
+    );
+  }
 
   if (isLoading) {
     return (
